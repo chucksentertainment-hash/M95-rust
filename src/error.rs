@@ -71,20 +71,20 @@ pub fn bad_request_field(field: &str, message: &str) -> (StatusCode, Json<ApiErr
     )
 }
 
-pub fn conflict(message: &str) -> (StatusCode, Json<ApiError>) {
-    error(StatusCode::CONFLICT, message)
+pub fn conflict(code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
+    error(StatusCode::CONFLICT, code, message)
 }
 
 pub fn not_found(code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
     error(StatusCode::NOT_FOUND, code, message)
 }
 
-pub fn unsupported_media_type(message: &str) -> (StatusCode, Json<ApiError>) {
-    error(StatusCode::UNSUPPORTED_MEDIA_TYPE, message)
+pub fn unsupported_media_type(code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
+    error(StatusCode::UNSUPPORTED_MEDIA_TYPE, code, message)
 }
 
-pub fn unauthorized(message: &str) -> (StatusCode, Json<ApiError>) {
-    error(StatusCode::UNAUTHORIZED, message)
+pub fn unauthorized(code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
+    error(StatusCode::UNAUTHORIZED, code, message)
 }
 
 pub fn bad_gateway(code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
@@ -100,7 +100,7 @@ pub fn internal<E: std::fmt::Display>(err: E) -> (StatusCode, Json<ApiError>) {
     )
 }
 
-fn error(status: StatusCode, code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
+fn error(status: StatusCode, _code: ErrorCode, message: &str) -> (StatusCode, Json<ApiError>) {
     (
         status,
         Json(ApiError {

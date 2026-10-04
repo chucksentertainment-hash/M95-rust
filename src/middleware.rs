@@ -13,7 +13,7 @@ use axum::middleware::Next;
 use axum::response::Response;
 use axum::Json;
 
-use crate::error::{unsupported_media_type, ApiError};
+use crate::error::{unsupported_media_type, ApiError, ErrorCode};
 
 /// Rejects POST/PUT requests that carry a body but declare a content type
 /// other than JSON, so handlers that expect `Json` never see a mislabeled
@@ -28,6 +28,7 @@ pub async fn require_json_content_type(
         && !is_json_content_type(req.headers().get(header::CONTENT_TYPE))
     {
         return Err(unsupported_media_type(
+            ErrorCode::InvalidParameters,
             "content-type must be application/json",
         ));
     }
