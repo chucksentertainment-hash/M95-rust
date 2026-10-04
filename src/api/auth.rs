@@ -4,7 +4,7 @@ use axum::response::IntoResponse;
 use axum::Json;
 
 use crate::auth::jwt;
-use crate::error::{bad_request_field, internal, ApiResult};
+use crate::error::{bad_request_field, internal, ApiResult, ErrorCode};
 use crate::models::{AuthResponse, LoginRequest, SignupRequest};
 use crate::services::users::{self, UserError};
 use crate::validation::{is_valid_email, validate_name};
